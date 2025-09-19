@@ -1,9 +1,19 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 
 export default function SearchForm({ params, onParamChange }) {
+  const handleCheckboxChange = (e) => {
+    const event = {
+      target: {
+        name: 'full_time',
+        value: e.target.checked,
+        type: 'checkbox'
+      }
+    };
+    onParamChange(event);
+  };
+
   return (
     <div className="mb-8 p-6 border rounded-lg bg-card">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
@@ -30,11 +40,13 @@ export default function SearchForm({ params, onParamChange }) {
           />
         </div>
         <div className="flex items-center space-x-2">
-          <Checkbox
+          <input
+            type="checkbox"
             id="full-time"
-            onChange={onParamChange}
+            onChange={handleCheckboxChange}
             checked={params.full_time || false}
             name="full_time"
+            className="h-4 w-4 rounded border border-input"
           />
           <Label
             htmlFor="full-time"
