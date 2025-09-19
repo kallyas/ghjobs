@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import useFetchJobs from "./useFetchJobs";
-import { Container } from "react-bootstrap";
-import Job from "./Job";
-import JobsPagination from "./JobsPagination";
-import SearchForm from "./SearchForm";
+import useFetchJobs from "./useFetchJobs.jsx";
+import Job from "./Job.jsx";
+import JobsPagination from "./JobsPagination.jsx";
+import SearchForm from "./SearchForm.jsx";
 
 function App() {
   const [params, setParams] = useState({});
@@ -20,21 +19,21 @@ function App() {
   }
 
   return (
-    <Container className="my-4">
-      <h1 className="mb-4">GitHub Jobs</h1>
+    <div className="container mx-auto py-8 px-4">
+      <h1 className="text-4xl font-bold mb-8">GitHub Jobs</h1>
       <SearchForm params={params} onParamChange={handleParamChange} />
       <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
       {loading && (
-        <div className="spinner-border text-primary mb-4 mt-4" role="status">
-          <span className="sr-only">Loading...</span>
+        <div className="flex justify-center my-8">
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
-      {error && <h1>Error. Try Refreshing.</h1>}
+      {error && <h1 className="text-2xl text-destructive text-center my-8">Error. Try Refreshing.</h1>}
       {jobs.map((job) => {
         return <Job key={job.id} job={job} />;
       })}
       <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
-    </Container>
+    </div>
   );
 }
 
